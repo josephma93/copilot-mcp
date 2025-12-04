@@ -214,6 +214,21 @@ Claude will automatically discover the available tools:
 - `code_generate`
 - `code_tests`
 
+## Tasks
+
+- `deno task dev` — run the MCP server locally (stdio).
+- `deno task smoke` — run the smoke test (starts the server with `deno task dev` by default; override with `SERVER_CMD`).
+- `deno task compile` — build a standalone binary at `dist/copilot-mcp`.
+
+## Homebrew packaging
+
+1. Tag a release (e.g., `v0.1.0`). The `release` GitHub Action builds macOS arm64/x86_64 binaries, tars them, and attaches artifacts plus `.sha256` files to the GitHub release.
+2. In your tap repo (e.g., `josephma93/homebrew-tap`), copy `homebrew/copilot-mcp.rb.example` to `Formula/copilot-mcp.rb` and replace `__VERSION__`, `__SHA_ARM64__`, and `__SHA_X64__` with the values from the release assets.
+3. Users can install with:
+   ```bash
+   brew install josephma93/tap/copilot-mcp
+   ```
+
 # 🛠 Usage Examples
 
 Below are examples of how an MCP client may call these tools.

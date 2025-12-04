@@ -1,0 +1,26 @@
+# Homebrew tap template. Copy this into your tap repo (e.g., josephma93/homebrew-tap)
+# as Formula/copilot-mcp.rb and replace version/sha values per release.
+class CopilotMcp < Formula
+  desc "Model Context Protocol server for GitHub Copilot"
+  homepage "https://github.com/josephma93/copilot-mcp"
+  version "__VERSION__"
+
+  on_macos do
+    if Hardware::CPU.arm?
+      url "https://github.com/josephma93/copilot-mcp/releases/download/v__VERSION__/copilot-mcp-aarch64-apple-darwin.tar.gz"
+      sha256 "__SHA_ARM64__"
+    else
+      url "https://github.com/josephma93/copilot-mcp/releases/download/v__VERSION__/copilot-mcp-x86_64-apple-darwin.tar.gz"
+      sha256 "__SHA_X64__"
+    end
+  end
+
+  def install
+    bin.install "copilot-mcp"
+  end
+
+  test do
+    # Basic smoke test: prints help. Adjust if the binary output changes.
+    assert_match "copilot-mcp", shell_output("#{bin}/copilot-mcp --help")
+  end
+end

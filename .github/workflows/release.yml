@@ -1,0 +1,52 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-and-upload:
+    name: Build and upload binaries
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - aarch64-apple-darwin
+          - x86_64-apple-darwin
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Compile binary
+        run: |
+          deno compile \
+            --target=${{ matrix.target }} \
+            --allow-run=copilot \
+            --allow-read=./prompts,./logs \
+            --allow-write=./logs \
+            --allow-env=LOG_LEVEL \
+            --include=./prompts \
+            --output=dist/copilot-mcp-${{ matrix.target }} \
+            src/index.ts
+
+      - name: Package
+        run: |
+          mkdir -p artifacts
+          tar -czf artifacts/copilot-mcp-${{ matrix.target }}.tar.gz -C dist copilot-mcp-${{ matrix.target }}
+          shasum -a 256 artifacts/copilot-mcp-${{ matrix.target }}.tar.gz > artifacts/copilot-mcp-${{ matrix.target }}.tar.gz.sha256
+
+      - name: Upload release artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/copilot-mcp-${{ matrix.target }}.tar.gz
+            artifacts/copilot-mcp-${{ matrix.target }}.tar.gz.sha256
