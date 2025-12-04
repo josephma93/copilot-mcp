@@ -4,6 +4,7 @@ class CopilotMcp < Formula
   desc "Model Context Protocol server for GitHub Copilot"
   homepage "https://github.com/josephma93/copilot-mcp"
   version "__VERSION__"
+  license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
