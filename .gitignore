@@ -1,0 +1,15 @@
+# Build artifacts
+dist/
+
+# Logs and temp files
+logs/
+*.log
+
+# Editor cruft
+.DS_Store
+.idea/
+.vscode/
+
+# Test and coverage output
+coverage/
+*.coverage.*

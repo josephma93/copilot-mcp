@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "dev": "deno run --allow-run=copilot --allow-read=./prompts,./logs --allow-write=./logs --allow-env=LOG_LEVEL src/index.ts",
+    "compile": "deno compile --allow-run=copilot --allow-read=./prompts,./logs --allow-write=./logs --allow-env=LOG_LEVEL --include=./prompts --output=dist/copilot-mcp src/index.ts",
+    "smoke": "deno test --allow-run=sh,deno,copilot,./dist/copilot-mcp --allow-read=./prompts,./logs --allow-write=./logs --allow-env=SERVER_CMD,PATH,HOME,SHELL,LOG_LEVEL,OSTYPE,USER,LOGNAME,USERNAME,TERM,NODE_V8_COVERAGE tests/smoke.test.ts"
+  },
+  "imports": {
+    "@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@1.24.3",
+    "@modelcontextprotocol/sdk/": "npm:@modelcontextprotocol/sdk@1.24.3/",
+    "zod": "npm:zod@4.1.13"
+  }
+}
