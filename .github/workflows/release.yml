@@ -27,16 +27,10 @@ jobs:
           deno-version: v1.x
 
       - name: Compile binary
-        run: |
-          deno compile \
-            --target=${{ matrix.target }} \
-            --allow-run=copilot \
-            --allow-read=./prompts,./logs \
-            --allow-write=./logs \
-            --allow-env=LOG_LEVEL \
-            --include=./prompts \
-            --output=dist/copilot-mcp-${{ matrix.target }} \
-            src/index.ts
+        env:
+          TARGET: ${{ matrix.target }}
+          OUT: dist/copilot-mcp-${{ matrix.target }}
+        run: deno task compile:ci
 
       - name: Package
         run: |
