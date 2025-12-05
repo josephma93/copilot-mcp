@@ -114,7 +114,25 @@ No hidden magic. No side effects. Easy to understand and extend.
 Today: GitHub Copilot CLI Tomorrow: Anything that accepts text input Tools do
 not expose backend branding.
 
-# 🚀 Quick Start
+# 🚀 Quick Start (install or build)
+
+### Install via Homebrew (recommended)
+
+Once a release is published to the tap, install with:
+
+```bash
+brew install josephma93/tap/copilot-mcp
+```
+
+Then run:
+
+```bash
+copilot-mcp
+```
+
+Ensure the GitHub Copilot CLI (`copilot`) is installed and on your `PATH`.
+
+### Run from source (development)
 
 ## 1. Install prerequisites
 
