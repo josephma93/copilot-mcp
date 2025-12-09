@@ -1,8 +1,10 @@
 name: update-formula
 
 on:
-  release:
-    types: [published]
+  workflow_run:
+    workflows: ["release"]
+    types:
+      - completed
 
 permissions:
   contents: write
@@ -10,17 +12,22 @@ permissions:
 
 jobs:
   bump-formula:
+    if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          ref: ${{ github.event.release.target_commitish }}
+          ref: ${{ github.event.workflow_run.head_branch }}
 
       - name: Set version
         id: vars
         run: |
-          TAG="${{ github.event.release.tag_name }}"
+          TAG="${{ github.event.workflow_run.head_branch }}"
+          if [[ -z "$TAG" ]]; then
+            echo "Tag not found on workflow_run; exiting."
+            exit 1
+          fi
           VERSION="${TAG#v}"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
