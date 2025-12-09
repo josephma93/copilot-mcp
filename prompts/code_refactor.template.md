@@ -7,9 +7,9 @@ Requirements:
 - Preserve external behavior and public API.
 - Improve readability, structure, and maintainability.
 - Apply idiomatic patterns for the given language when reasonable.
-- Return the full refactored code only.
-- Do not include explanations, comments, or markdown fences.
-- Do not include diff markers.
+- If you write or modify files, list every path and action (created/overwritten/appended) before the code; if no file writes, output "FILES: none".
+- After the file list, return the full refactored code only.
+- Do not include explanations, comments, markdown fences, or diff markers.
 
 Refactoring goals: {{goal}}
 

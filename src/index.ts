@@ -55,7 +55,14 @@ async function runCopilotPrompt(prompt: string): Promise<string> {
 
   try {
     const copilot = new Deno.Command("copilot", {
-      args: ["-p", prompt, "--allow-all-tools"],
+      args: [
+        "-p",
+        prompt,
+        "--allow-all-tools",
+        "--allow-all-paths",
+        "--add-dir",
+        Deno.cwd(),
+      ],
       stdin: "null",
       stdout: "piped",
       stderr: "piped",
