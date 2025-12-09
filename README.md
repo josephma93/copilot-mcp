@@ -138,7 +138,7 @@ Prerequisite: GitHub Copilot CLI (`copilot`) must be installed and authenticated
 
 ### Deno
 
-Install [Deno](https://docs.deno.com/runtime/manual) (1.46+). TypeScript is
+Install [Deno](https://docs.deno.com/runtime/manual) (2.1+). TypeScript is
 supported out of the box—no npm install needed.
 
 ### GitHub Copilot CLI
