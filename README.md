@@ -126,6 +126,13 @@ brew install josephma93/copilot-mcp/copilot-mcp
 copilot-mcp
 ```
 
+Add to your MCP client (example `~/.codex/config.toml`):
+
+```toml
+[mcp_servers.copilot-mcp]
+command = "/opt/homebrew/bin/copilot-mcp"
+```
+
 Prerequisite: GitHub Copilot CLI (`copilot`) must be installed and authenticated. See https://github.com/github/copilot-cli for installation and login steps, then ensure `copilot` is on your `PATH`.
 
 ### Run from source (development)
