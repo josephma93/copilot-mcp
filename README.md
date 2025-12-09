@@ -133,6 +133,12 @@ Add to your MCP client (example `~/.codex/config.toml`):
 command = "/opt/homebrew/bin/copilot-mcp"
 ```
 
+Upgrade an existing install:
+
+```bash
+brew reinstall josephma93/copilot-mcp/copilot-mcp && copilot-mcp --help
+```
+
 Prerequisite: GitHub Copilot CLI (`copilot`) must be installed and authenticated. See https://github.com/github/copilot-cli for installation and login steps, then ensure `copilot` is on your `PATH`.
 
 ### Run from source (development)
