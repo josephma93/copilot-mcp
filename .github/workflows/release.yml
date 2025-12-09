@@ -22,9 +22,9 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup Deno
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2
         with:
-          deno-version: v2.2.x
+          deno-version: lts
 
       - name: Compile binary
         env:
