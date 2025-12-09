@@ -15,7 +15,12 @@ class CopilotMcp < Formula
   end
 
   def install
-    bin.install "copilot-mcp"
+    binary = if Hardware::CPU.arm?
+      "copilot-mcp-aarch64-apple-darwin"
+    else
+      "copilot-mcp-x86_64-apple-darwin"
+    end
+    bin.install binary => "copilot-mcp"
   end
 
   test do
