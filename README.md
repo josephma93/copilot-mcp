@@ -130,7 +130,7 @@ Then run:
 copilot-mcp
 ```
 
-Ensure the GitHub Copilot CLI (`copilot`) is installed and on your `PATH`.
+Prerequisite: GitHub Copilot CLI (`copilot`) must be installed and authenticated. See https://github.com/github/copilot-cli for installation and login steps, then ensure `copilot` is on your `PATH`.
 
 ### Run from source (development)
 
