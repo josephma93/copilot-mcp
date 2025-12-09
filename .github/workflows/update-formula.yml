@@ -18,7 +18,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          ref: ${{ github.event.workflow_run.head_branch }}
+          ref: main
+          fetch-depth: 0
 
       - name: Set version
         id: vars
@@ -83,6 +84,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Update Homebrew formula for ${{ steps.vars.outputs.tag }}"
           branch: chore/update-formula-${{ steps.vars.outputs.tag }}
+          base: main
           title: "Update Homebrew formula for ${{ steps.vars.outputs.tag }}"
           body: |
             Update `Formula/copilot-mcp.rb` to ${{ steps.vars.outputs.tag }} with release checksums.
