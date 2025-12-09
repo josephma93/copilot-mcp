@@ -118,15 +118,11 @@ not expose backend branding.
 
 ### Install via Homebrew (recommended)
 
-Once a release is published to the tap, install with:
+This repo can be tapped directly (explicit URL) and installed:
 
 ```bash
-brew install josephma93/tap/copilot-mcp
-```
-
-Then run:
-
-```bash
+brew tap josephma93/copilot-mcp https://github.com/josephma93/copilot-mcp
+brew install josephma93/copilot-mcp/copilot-mcp
 copilot-mcp
 ```
 
@@ -240,11 +236,12 @@ Claude will automatically discover the available tools:
 
 ## Homebrew packaging
 
-1. Tag a release (e.g., `v0.1.0`). The `release` GitHub Action builds macOS arm64/x86_64 binaries, tars them, and attaches artifacts plus `.sha256` files to the GitHub release.
-2. In your tap repo (e.g., `josephma93/homebrew-tap`), copy `homebrew/copilot-mcp.rb.example` to `Formula/copilot-mcp.rb` and replace `__VERSION__`, `__SHA_ARM64__`, and `__SHA_X64__` with the values from the release assets.
-3. Users can install with:
+1. Tag a release (e.g., `v0.1.5`). The `release` GitHub Action builds macOS arm64/x86_64 binaries, tars them, and attaches artifacts plus `.sha256` files to the GitHub release.
+2. Update `Formula/copilot-mcp.rb` in this repo with the new version and SHA256 values from the release assets (arm64/x64). Commit and push.
+3. Users can install by tapping this repo explicitly:
    ```bash
-   brew install josephma93/tap/copilot-mcp
+   brew tap josephma93/copilot-mcp https://github.com/josephma93/copilot-mcp
+   brew install josephma93/copilot-mcp/copilot-mcp
    ```
 
 # 🛠 Usage Examples
