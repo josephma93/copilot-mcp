@@ -24,7 +24,7 @@ jobs:
       - name: Setup Deno
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v2.1.x
+          deno-version: v2.2.x
 
       - name: Compile binary
         env:
