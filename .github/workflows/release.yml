@@ -38,9 +38,19 @@ jobs:
           tar -czf artifacts/copilot-mcp-${{ matrix.target }}.tar.gz -C dist copilot-mcp-${{ matrix.target }}
           shasum -a 256 artifacts/copilot-mcp-${{ matrix.target }}.tar.gz > artifacts/copilot-mcp-${{ matrix.target }}.tar.gz.sha256
 
+      - name: Ensure release exists
+        if: matrix.target == 'aarch64-apple-darwin'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release view "${{ github.ref_name }}" >/dev/null 2>&1 || \
+            gh release create "${{ github.ref_name }}" --title "${{ github.ref_name }}" --generate-notes --notes ""
+
       - name: Upload release artifacts
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            artifacts/copilot-mcp-${{ matrix.target }}.tar.gz
-            artifacts/copilot-mcp-${{ matrix.target }}.tar.gz.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ github.ref_name }}" \
+            artifacts/copilot-mcp-${{ matrix.target }}.tar.gz \
+            artifacts/copilot-mcp-${{ matrix.target }}.tar.gz.sha256 \
+            --clobber
