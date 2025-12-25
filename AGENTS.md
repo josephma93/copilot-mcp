@@ -32,6 +32,12 @@
 - PRs: Include what changed, why, and how to verify (commands/tests run). Link issues if applicable. Screenshots/terminal output only when they clarify behavior.
 - Keep Deno-only expectations in mind: no Node build artifacts or npm scripts should reappear without discussion.
 
+## Release Automation
+- **Workflow**: Pushing a tag `v*` triggers `.github/workflows/release.yml`.
+- **Binaries**: The release workflow builds macOS binaries and uploads them to GitHub Releases with SHA256 checksums.
+- **Homebrew**: After the release workflow succeeds, `.github/workflows/update-formula.yml` is triggered to update `Formula/copilot-mcp.rb` automatically.
+- **Template**: The formula is generated from `.github/formula-template.rb`. Do not edit the formula directly for version bumps; let the automation handle it.
+
 ## Security & Configuration Tips
 - Permissions: Keep `deno run`/`deno task` flags minimal (`--allow-run=copilot`, read prompts/logs, write logs, `--allow-env=LOG_LEVEL` for the server; smoke test uses additional env for the MCP client).
 - Copilot auth: Ensure `copilot auth login` succeeds (Keychain prompts are expected on macOS), or export `GITHUB_TOKEN`/`COPILOT_TOKEN` when running tests.

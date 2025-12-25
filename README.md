@@ -247,15 +247,28 @@ Claude will automatically discover the available tools:
 - `deno task smoke` — run the smoke test (starts the server with `deno task dev` by default; override with `SERVER_CMD`).
 - `deno task compile` — build a standalone binary at `dist/copilot-mcp`.
 
-## Homebrew packaging
+## Homebrew packaging and Release Automation
 
-1. Tag a release (e.g., `v0.1.5`). The `release` GitHub Action builds macOS arm64/x86_64 binaries, tars them, and attaches artifacts plus `.sha256` files to the GitHub release.
-2. Update `Formula/copilot-mcp.rb` in this repo with the new version and SHA256 values from the release assets (arm64/x64). Commit and push.
-3. Users can install by tapping this repo explicitly:
-   ```bash
-   brew tap josephma93/copilot-mcp https://github.com/josephma93/copilot-mcp
-   brew install josephma93/copilot-mcp/copilot-mcp
-   ```
+The release process is fully automated via GitHub Actions:
+
+1. **Tag a release**: When you push a new tag (e.g., `v0.1.12`), the `release` workflow is triggered.
+2. **Build and Artifacts**: The workflow builds macOS binaries (`arm64` and `x86_64`), tars them, calculates SHA256 hashes, and uploads everything to a new GitHub Release.
+3. **Formula Update**: Once the release workflow finishes, the `update-formula` workflow automatically:
+    - Downloads the new SHA256 hashes.
+    - Updates `Formula/copilot-mcp.rb` using `.github/formula-template.rb`.
+    - Commits and pushes the update back to `main`.
+
+Users can install or upgrade via Homebrew:
+```bash
+brew update
+brew upgrade josephma93/copilot-mcp/copilot-mcp
+```
+
+Or install for the first time:
+```bash
+brew tap josephma93/copilot-mcp https://github.com/josephma93/copilot-mcp
+brew install josephma93/copilot-mcp/copilot-mcp
+```
 
 # 🛠 Usage Examples
 
