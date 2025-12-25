@@ -7,10 +7,10 @@ class CopilotMcp < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/josephma93/copilot-mcp/releases/download/v0.1.12/copilot-mcp-aarch64-apple-darwin.tar.gz"
-      sha256 "1f2ecbdc1b236988383b5658efd8a1521294eb4820478cefd4b8bfe944ec5259"
+      sha256 "37e49fd2a9ff126279bfda31554df14c6283b572a6d3919af33384b2346253d8"
     else
       url "https://github.com/josephma93/copilot-mcp/releases/download/v0.1.12/copilot-mcp-x86_64-apple-darwin.tar.gz"
-      sha256 "fd71cfb7454a321d49c17e8597830b202f0cc4a1b29238abb0dbc43d0f85a0c7"
+      sha256 "69cc71bd6f6804c986d007b4c4f46eb37e75c05cbaa426675c3a4fe400ef5f72"
     end
   end
 
