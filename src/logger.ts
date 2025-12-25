@@ -1,3 +1,5 @@
+import { fromFileUrl } from "https://deno.land/std@0.224.0/path/from_file_url.ts";
+import { dirname } from "https://deno.land/std@0.224.0/path/dirname.ts";
 import { ensureDir } from "https://deno.land/std@0.224.0/fs/ensure_dir.ts";
 import {
   FileHandler,
@@ -9,7 +11,8 @@ import { join } from "https://deno.land/std@0.224.0/path/join.ts";
 export type LogLevel = "critical" | "error" | "warning" | "info" | "debug";
 type LogMeta = Record<string, unknown> | string | undefined;
 
-const logDir = join(Deno.cwd(), "logs");
+const __dirname = dirname(fromFileUrl(import.meta.url));
+const logDir = join(__dirname, "..", "logs");
 const logFile = join(logDir, "server.log");
 
 function resolveLogLevel(): LogLevel {
