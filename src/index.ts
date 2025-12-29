@@ -393,12 +393,6 @@ async function createServer(): Promise<McpServer> {
 if (import.meta.main) {
   const args = Deno.args;
   if (args.includes("-h") || args.includes("--help")) {
-    console.log("copilot-mcp (MCP over stdio). Run with an MCP client; no CLI options.");
-    Deno.exit(0);
-  }
-if (import.meta.main) {
-  const args = Deno.args;
-  if (args.includes("-h") || args.includes("--help")) {
     console.log(
       "copilot-mcp (MCP over stdio). Run with an MCP client; no CLI options.",
     );
@@ -409,5 +403,4 @@ if (import.meta.main) {
   const server = await createServer();
   await server.connect(transport);
   appLog.info("copilot-mcp server is running over stdio");
-}
 }
