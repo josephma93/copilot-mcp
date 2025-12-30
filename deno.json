@@ -1,9 +1,9 @@
 {
   "tasks": {
-    "dev": "deno run --allow-run=copilot --allow-read=./prompts,./logs --allow-write=./logs --allow-env=LOG_LEVEL src/index.ts",
-    "compile": "deno compile --allow-run=copilot --allow-read=./prompts,./logs --allow-write=./logs --allow-env=LOG_LEVEL --include=./prompts --output=dist/copilot-mcp src/index.ts",
-    "compile:ci": "sh -c 'OUT=${OUT:-dist/copilot-mcp}; TARGET_FLAG=\"\"; if [ -n \"${TARGET:-}\" ]; then TARGET_FLAG=\"--target=${TARGET}\"; fi; deno compile $TARGET_FLAG --allow-run=copilot --allow-read=./prompts,./logs --allow-write=./logs --allow-env=LOG_LEVEL --include=./prompts --output=\"$OUT\" src/index.ts'",
-    "smoke": "deno test --allow-run=sh,deno,copilot,./dist/copilot-mcp --allow-read=./prompts,./logs --allow-write=./logs --allow-env=SERVER_CMD,PATH,HOME,SHELL,LOG_LEVEL,OSTYPE,USER,LOGNAME,USERNAME,TERM,NODE_V8_COVERAGE tests/smoke.test.ts"
+    "dev": "deno run --allow-run=copilot --allow-read --allow-write --allow-env=LOG_DIR,HOME,LOCALAPPDATA,APPDATA,XDG_STATE_HOME src/index.ts",
+    "compile": "deno compile --allow-run=copilot --allow-read --allow-write --allow-env=LOG_DIR,HOME,LOCALAPPDATA,APPDATA,XDG_STATE_HOME --include=./prompts --output=dist/copilot-mcp src/index.ts",
+    "compile:ci": "sh -c 'OUT=${OUT:-dist/copilot-mcp}; TARGET_FLAG=\"\"; if [ -n \"${TARGET:-}\" ]; then TARGET_FLAG=\"--target=${TARGET}\"; fi; deno compile $TARGET_FLAG --allow-run=copilot --allow-read --allow-write --allow-env=LOG_DIR,HOME,LOCALAPPDATA,APPDATA,XDG_STATE_HOME --include=./prompts --output=\"$OUT\" src/index.ts'",
+    "smoke": "deno test --allow-run=sh,deno,copilot,./dist/copilot-mcp --allow-read --allow-write --allow-env=SERVER_CMD,PATH,HOME,SHELL,LOG_DIR,OSTYPE,USER,LOGNAME,USERNAME,TERM,NODE_V8_COVERAGE tests/smoke.test.ts"
   },
   "imports": {
     "@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@1.24.3",
