@@ -12,7 +12,7 @@ const env = {
   PATH: Deno.env.get("PATH") ?? "",
   HOME: Deno.env.get("HOME") ?? "",
   SHELL: Deno.env.get("SHELL") ?? "/bin/sh",
-  LOG_LEVEL: Deno.env.get("LOG_LEVEL") ?? "info",
+  LOG_DIR: Deno.env.get("LOG_DIR") ?? "",
 };
 
 async function runDenoCheck(): Promise<void> {

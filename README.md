@@ -160,14 +160,20 @@ This project assumes `copilot` is installed and available in `$PATH`.
 deno task dev
 ```
 
-This grants only the permissions the server needs:
+This grants the permissions the server needs (including log access at a stable
+location):
 
 - `--allow-run=copilot` (to invoke the CLI)
-- `--allow-read=./prompts,./logs` (to load templates and create/check the log
-  folder)
-- `--allow-write=./logs` (to persist logs without polluting stdio)
+- `--allow-read` (to load templates and access the log directory)
+- `--allow-write` (to persist logs without polluting stdio)
+- `--allow-env=LOG_DIR,HOME,LOCALAPPDATA,APPDATA,XDG_STATE_HOME`
+  (to resolve log location)
 
 The server runs over **stdio**, the standard and recommended MCP transport.
+
+Logs default to an OS-stable location (macOS: `~/Library/Logs/copilot-mcp`,
+Linux: `~/.local/state/copilot-mcp/logs`, Windows: `%LOCALAPPDATA%\copilot-mcp\logs`).
+Override with `LOG_DIR=/path/to/logs` if needed.
 
 ## 3. Build a single binary
 
@@ -226,9 +232,9 @@ For local development (without compiling), you can point to:
   "args": [
     "run",
     "--allow-run=copilot",
-    "--allow-read=./prompts,./logs",
-    "--allow-write=./logs",
-    "--allow-env=LOG_LEVEL",
+    "--allow-read",
+    "--allow-write",
+    "--allow-env=LOG_DIR,HOME,LOCALAPPDATA,APPDATA,XDG_STATE_HOME",
     "src/index.ts"
   ]
 }

@@ -18,4 +18,5 @@ Input fields:
 - `requirements` (optional): scenarios, edge cases, or coverage goals
 
 The tool returns test code only. It does not return explanations or markdown
-formatting.
+formatting. Treat the output as authoritative; callers should not rewrite or
+reformat it after invocation.

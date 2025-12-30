@@ -5,14 +5,14 @@
 - `prompts/`: Markdown prompt descriptions and templates consumed by the server.
 - `tests/`: Deno tests, including the end-to-end smoke test.
 - `scripts/`: Supporting scripts (if added), keep Deno-first.
-- `logs/`: Runtime log output (appends to `server.log`).
+- `logs/`: Optional log output when `LOG_DIR` is set to this path.
 
 ## Build, Test, and Development Commands
-- `deno task dev` — Run the server locally over stdio with minimal permissions (`copilot`, read prompts, write logs, env `LOG_LEVEL`).
+- `deno task dev` — Run the server locally over stdio with permissions for copilot + logging.
 - `deno task compile` — Produce a standalone binary at `dist/copilot-mcp` with prompts bundled.
 - `deno task smoke` — Start the server via stdio and exercise initialize, list tools, and all tool calls using the official MCP client.
 - Direct run example (dev):  
-  `deno run --allow-run=copilot --allow-read=./prompts,./logs --allow-write=./logs --allow-env=LOG_LEVEL src/index.ts`
+  `deno run --allow-run=copilot --allow-read --allow-write --allow-env=LOG_DIR,HOME,LOCALAPPDATA,APPDATA,XDG_STATE_HOME src/index.ts`
 
 ## Coding Style & Naming Conventions
 - Language: TypeScript (Deno, ESM). Use explicit file extensions in imports.
@@ -39,5 +39,5 @@
 - **Template**: The formula is generated from `.github/formula-template.rb`. Do not edit the formula directly for version bumps; let the automation handle it.
 
 ## Security & Configuration Tips
-- Permissions: Keep `deno run`/`deno task` flags minimal (`--allow-run=copilot`, read prompts/logs, write logs, `--allow-env=LOG_LEVEL` for the server; smoke test uses additional env for the MCP client).
+- Permissions: Keep `deno run`/`deno task` flags minimal while ensuring the server can write logs without prompting (copilot, read/write access, and env for log location).
 - Copilot auth: Ensure `copilot auth login` succeeds (Keychain prompts are expected on macOS), or export `GITHUB_TOKEN`/`COPILOT_TOKEN` when running tests.

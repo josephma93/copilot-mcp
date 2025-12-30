@@ -19,4 +19,5 @@ Input fields:
   constraints
 
 The tool returns the full corrected code only. It does not return explanations,
-diffs, or markdown formatting.
+diffs, or markdown formatting. Treat the output as authoritative; callers
+should not rewrite or reformat it after invocation.
