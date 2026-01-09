@@ -144,7 +144,7 @@ Deno.test({
     const tools = await withTimeout(client.listTools(), 20_000, "listTools");
     logStep("list tools: client.listTools ok", listStart);
     assert(Array.isArray(tools.tools), "tools should be an array");
-    assertEquals(tools.tools.length >= 4, true);
+    assertEquals(tools.tools.length >= 5, true);
   });
 });
 
@@ -256,6 +256,34 @@ Deno.test({
       "callTool code_tests",
     );
     logStep("code_tests: client.callTool ok", callStart);
+    assert(Array.isArray(resp.content), "tool call should return content array");
+    const textItem = resp.content.find((c: { type: string }) =>
+      c.type === "text"
+    );
+    assert(textItem, "tool call should include text content");
+  });
+});
+
+Deno.test({
+  name: "smoke: tool agent",
+  sanitizeResources: false,
+  sanitizeOps: false,
+}, async () => {
+  await withClient("agent", async (client) => {
+    const callStart = Date.now();
+    logStep("agent: client.callTool start");
+    const resp = await withTimeout(
+      client.callTool({
+        name: "agent",
+        arguments: {
+          goal: "Summarize the add function behavior.",
+          files: ["add.ts"],
+        },
+      }),
+      60_000,
+      "callTool agent",
+    );
+    logStep("agent: client.callTool ok", callStart);
     assert(Array.isArray(resp.content), "tool call should return content array");
     const textItem = resp.content.find((c: { type: string }) =>
       c.type === "text"

@@ -9,6 +9,7 @@ export interface AllToolPrompts {
   codeRefactor: ToolPromptPair;
   codeGenerate: ToolPromptPair;
   codeTests: ToolPromptPair;
+  agent: ToolPromptPair;
 }
 
 interface PromptFile {
@@ -54,6 +55,8 @@ export async function loadAllToolPrompts(): Promise<AllToolPrompts> {
     codeGenerateTemplate,
     codeTestsDescription,
     codeTestsTemplate,
+    agentDescription,
+    agentTemplate,
   ] = await Promise.all([
     loadPromptFile("code_fix.description.md"),
     Deno.readTextFile(
@@ -70,6 +73,10 @@ export async function loadAllToolPrompts(): Promise<AllToolPrompts> {
     loadPromptFile("code_tests.description.md"),
     Deno.readTextFile(
       new URL("../prompts/code_tests.template.md", import.meta.url),
+    ),
+    loadPromptFile("agent.description.md"),
+    Deno.readTextFile(
+      new URL("../prompts/agent.template.md", import.meta.url),
     ),
   ]);
 
@@ -93,6 +100,11 @@ export async function loadAllToolPrompts(): Promise<AllToolPrompts> {
       title: codeTestsDescription.title,
       description: codeTestsDescription.body,
       template: codeTestsTemplate.trim(),
+    },
+    agent: {
+      title: agentDescription.title,
+      description: agentDescription.body,
+      template: agentTemplate.trim(),
     },
   };
 }

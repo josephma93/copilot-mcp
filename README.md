@@ -246,6 +246,7 @@ Claude will automatically discover the available tools:
 - `code_refactor`
 - `code_generate`
 - `code_tests`
+- `agent`
 
 ## Tasks
 
@@ -315,6 +316,15 @@ Below are examples of how an MCP client may call these tools.
   "code": "function sum(a,b){ return a+b }",
   "language": "JavaScript",
   "framework": "jest"
+}
+```
+
+### General-purpose agent
+
+```json
+{
+  "goal": "Update the logger to include request IDs in every entry.",
+  "files": ["src/logger.ts"]
 }
 ```
 

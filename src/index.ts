@@ -40,6 +40,11 @@ interface CodeTestsInput {
   requirements?: string;
 }
 
+interface AgentInput {
+  goal: string;
+  files?: string[];
+}
+
 /**
  * Runs the copilot CLI with a single prompt and returns its textual output.
  */
@@ -67,7 +72,6 @@ async function runCopilotPrompt(prompt: string): Promise<string> {
       stdout: "piped",
       stderr: "piped",
     });
-
     const { code, stdout, stderr } = await copilot.output();
     const trimmedStdout = decoder.decode(stdout).trim();
     const trimmedStderr = decoder.decode(stderr).trim();
@@ -355,6 +359,66 @@ async function createServer(): Promise<McpServer> {
         language: input.language,
         framework: input.framework,
         requirements: input.requirements,
+      });
+
+      toolLog.debug(
+        {
+          promptPreview: truncate(finalPrompt),
+          promptLength: finalPrompt.length,
+        },
+        "rendered prompt",
+      );
+
+      const output = await runCopilotPrompt(finalPrompt);
+
+      toolLog.info(
+        {
+          durationMs: Date.now() - start,
+          outputPreview: truncate(output),
+          outputLength: output.length,
+        },
+        "completed",
+      );
+
+      return {
+        content: [
+          {
+            type: "text" as const,
+            text: output,
+          },
+        ],
+      };
+    },
+  );
+
+  server.registerTool(
+    "agent",
+    {
+      title: prompts.agent.title,
+      description: prompts.agent.description,
+      inputSchema: z.object({
+        goal: z.string().min(1),
+        files: z.array(z.string()).optional(),
+      }),
+    },
+    async (input: AgentInput) => {
+      const start = Date.now();
+      const toolLog = getLogger("agent");
+      const filesList = input.files?.length
+        ? input.files.map((file) => `- ${file}`).join("\n")
+        : "None provided.";
+
+      toolLog.info(
+        {
+          goal: truncate(input.goal, 120),
+          filesCount: input.files?.length ?? 0,
+        },
+        "request received",
+      );
+
+      const finalPrompt = renderTemplate(prompts.agent.template, {
+        goal: input.goal,
+        files: filesList,
       });
 
       toolLog.debug(
