@@ -1,16 +1,16 @@
 class CopilotMcp < Formula
   desc "Model Context Protocol server for GitHub Copilot"
   homepage "https://github.com/josephma93/copilot-mcp"
-  version "0.1.14"
+  version "0.1.15"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/josephma93/copilot-mcp/releases/download/v0.1.14/copilot-mcp-aarch64-apple-darwin.tar.gz"
-      sha256 "4a94ed5e3836e306769f1389a7534cb0d583b0e26dfefa79e0d2231239a9923e"
+      url "https://github.com/josephma93/copilot-mcp/releases/download/v0.1.15/copilot-mcp-aarch64-apple-darwin.tar.gz"
+      sha256 "17648e4819cd1e433a9f73dc622010e60ac936c1c19acd17c9a384437406fff0"
     else
-      url "https://github.com/josephma93/copilot-mcp/releases/download/v0.1.14/copilot-mcp-x86_64-apple-darwin.tar.gz"
-      sha256 "ba72f2cc435de382d8e7f534e7d1bb65834529d20e44178ea50f4650a684901d"
+      url "https://github.com/josephma93/copilot-mcp/releases/download/v0.1.15/copilot-mcp-x86_64-apple-darwin.tar.gz"
+      sha256 "99272fca1ec71a22e5b6b8745cd9acf27798d1adcc00482c3c159b5efed28e61"
     end
   end
 
