@@ -254,6 +254,15 @@ Claude will automatically discover the available tools:
 - `deno task smoke` — run the smoke test (starts the server with `deno task dev` by default; override with `SERVER_CMD`).
 - `deno task compile` — build a standalone binary at `dist/copilot-mcp`.
 
+## Release process (end-to-end)
+
+1. Ensure your branch is up to date: `git pull --rebase`.
+2. Make changes, then stage and commit with a clear message.
+3. If CI or automation has pushed commits, rebase again: `git pull --rebase`.
+4. Push the commit: `git push`.
+5. Create the release tag: `git tag vX.Y.Z`.
+6. Push the tag to trigger the release workflow: `git push origin vX.Y.Z`.
+
 ## Homebrew packaging and Release Automation
 
 The release process is fully automated via GitHub Actions:
